@@ -1,7 +1,7 @@
 frodo
 =====
 
-- Frodo is a ring dependency system. 
+- Frodo is a lightweight ring dependency framework. Written in C++11.
 - Frodo is tiny.
 - Frodo is cross-platform.
 - Frodo is BOOST licensed.

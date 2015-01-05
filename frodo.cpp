@@ -1,4 +1,4 @@
-// Frodo, a ring dependency system. boost licensed.
+// Frodo, a ring dependency framework. boost licensed.
 // - rlyeh ~~ listening to stoned jesus / i'm the mountain
 
 #include <cstdlib>
