@@ -1,4 +1,4 @@
-frodo
+frodo <a href="https://travis-ci.org/r-lyeh/frodo"><img src="https://api.travis-ci.org/r-lyeh/frodo.svg?branch=master" align="right" /></a>
 =====
 
 - Frodo is a lightweight ring dependency framework. Written in C++11.
