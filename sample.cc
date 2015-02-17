@@ -65,9 +65,5 @@ int main() {
     std::getline( std::cin, dummy );
 
     // shutdown
-    if( !frodo::quit() ) {
-        return 0;
-    }
-
-    return -1;
+    return frodo::quit() ? 0 : -1;
 }
