@@ -4,7 +4,7 @@ frodo <a href="https://travis-ci.org/r-lyeh/frodo"><img src="https://api.travis-
 - Frodo is a lightweight ring dependency framework. Written in C++11.
 - Frodo is tiny.
 - Frodo is cross-platform.
-- Frodo is BOOST licensed.
+- Frodo is zlib/libpng licensed.
 
 ## some theory
 - rings are made of independant systems, subsystems, libraries, singletons, etc
@@ -35,7 +35,7 @@ namespace frodo {
 
 namespace memory {
     bool init() {
-        return true;        
+        return true;
     }
     bool quit() {
         return true;
@@ -72,7 +72,7 @@ int main() {
     // 10 subsystems
     frodo::ring( 13, { "logger", logger::init, logger::quit } );
     frodo::ring( 14, { "console", console::init, console::quit } );
-    // 20 devices 
+    // 20 devices
     //frodo::ring( 20, { "audio", audio::init, audio::quit } );
     //frodo::ring( 25, { "data", data::init, data::quit } );
     //frodo::ring( 27, { "input", input::init, input::quit } );
@@ -85,7 +85,7 @@ int main() {
     //frodo::ring( 40, { "model", model::init, model::quit } );
     //frodo::ring( 45, { "world", world::init, world::quit } );
     // 50 ui
-    //frodo::ring( 59, { "help", help::init, help::quit } ); 
+    //frodo::ring( 59, { "help", help::init, help::quit } );
 
     if( !frodo::init() ) {
         return -1;
