@@ -1,21 +1,20 @@
 frodo <a href="https://travis-ci.org/r-lyeh/frodo"><img src="https://api.travis-ci.org/r-lyeh/frodo.svg?branch=master" align="right" /></a>
 =====
 
-- Frodo is a lightweight ring dependency framework. Written in C++11.
-- Frodo is tiny.
-- Frodo is cross-platform.
+- Frodo is a lightweight ring dependency framework (C++11).
+- Frodo is tiny, header-only, cross-platform.
 - Frodo is zlib/libpng licensed.
 
-## some theory
-- rings are made of independant systems, subsystems, libraries, singletons, etc
-- inner rings provide functionality to outer rings
-- initialization and deinitialization of rings must follow strict order
+## Some theory
+- Rings are made of independant systems, subsystems, libraries, singletons, etc.
+- Inner rings provide functionality to outer rings.
+- Initialization and deinitialization of rings must follow strict order.
 
 ## API
 ```c++
 namespace frodo {
     struct level {
-    	std::string name;
+        std::string name;
         std::function<bool()> init;
         std::function<bool()> quit;
     };
@@ -28,44 +27,45 @@ namespace frodo {
 }
 ```
 
-## example
+## Showcase
 ```c++
-#include <iostream>
 #include "frodo.hpp"
+#include <iostream>
 
 namespace memory {
     bool init() {
+        std::cout << "[ OK ] mem setup" << std::endl;
         return true;
     }
     bool quit() {
+        std::cout << "[ OK ] mem teardown" << std::endl;
         return true;
     }
 }
 
 namespace logger {
     bool init() {
-        std::cout << "logger subsystem initialized" << std::endl;
+        std::cout << "[ OK ] logger setup" << std::endl;
         return true;
     }
     bool quit() {
+        std::cout << "[ OK ] logger teardown" << std::endl;
         return true;
     }
 }
 
 namespace console {
     bool init() {
-        std::cout << "console subsystem initialized" << std::endl;
+        std::cout << "[ OK ] console setup" << std::endl;
         return true;
     }
     bool quit() {
-        std::cout << "bye bye console" << std::endl;
+        std::cout << "[ OK ] console teardown" << std::endl;
         return true;
     }
 }
 
-
 int main() {
-
     // app-defined levels
     // 00 memory and hooks
     frodo::ring(  0, { "memory", memory::init, memory::quit } );
@@ -87,37 +87,39 @@ int main() {
     // 50 ui
     //frodo::ring( 59, { "help", help::init, help::quit } );
 
-    if( !frodo::init() ) {
-        return -1;
+    if( frodo::init() ) {
+        // app starts here
+        std::string dummy;
+        std::cout << "Press any key to continue... (try aborting or killing app too)" << std::endl;
+        std::getline( std::cin, dummy );
+
+        // shutdown
+        if( frodo::quit() ) {
+            return 0;
+        }
     }
 
-    // app starts here
-    std::string dummy;
-    std::cout << "Press any key to continue... (try aborting or killing app too)" << std::endl;
-    std::getline( std::cin, dummy );
-
-    // shutdown
-    return frodo::quit() ? 0 : -1;
+    return -1;
 }
 ```
 
-## possible output
+## Possible output
 ```c++
 $frodo ./sample.out
-[ OK ] setup 'memory' ...
-[ OK ] setup 'logger' ... log following:
-       logger subsystem initialized
-[ OK ] setup 'console' ... log following:
-       console subsystem initialized
+[ OK ] mem setup
+[ OK ] logger setup
+[ OK ] console setup
 Press any key to continue... (try aborting or killing app too)
 ^C
-[ OK ] shutdown 'console' ... log following:
-       bye bye console
-[ OK ] shutdown 'logger' ...
-[ OK ] shutdown 'memory' ...
+[ OK ] console teardown
+[ OK ] logger teardown
+[ OK ] mem teardown
 ```
 
-## todo
+## Todo
 - `init({signal...})`
 - `reboot(lvl)`
 
+### Changelog
+- v1.0.0 (2015/12/07): Header-only, simplified implementation
+- v0.0.0 (2015/08/03): Initial commit
