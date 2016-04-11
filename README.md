@@ -121,5 +121,6 @@ Press any key to continue... (try aborting or killing app too)
 - `reboot(lvl)`
 
 ### Changelog
+- v1.0.1 (2016/04/11): No STL allocations; Implement reboot
 - v1.0.0 (2015/12/07): Header-only, simplified implementation
 - v0.0.0 (2015/08/03): Initial commit
